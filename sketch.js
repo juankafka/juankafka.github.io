@@ -8,7 +8,6 @@ let tracking = 0
 
 function preload() {
   font = loadFont('NotoSerifDisplay-ExtraLightItalic.ttf')
-  //font = loadFont('NotoJuans-Thin.otf')
 }
 
 function rotateAngle() {
