@@ -1,13 +1,14 @@
 let font
 let word = "hello"
-let width = 1000
-let height = 500
+// let width = windowWidth
+// let height = windowHeight
 let noiseSlider, sizeSlider, colorSlider;
 let sliderY = 25
 let tracking = 0
 
 function preload() {
   font = loadFont('NotoSerifDisplay-ExtraLightItalic.ttf')
+//  font = loadFont('NotoJuans-Thin.otf')
 }
 
 function rotateAngle() {
@@ -15,7 +16,7 @@ function rotateAngle() {
 }
 
 function setup() {
-  createCanvas(width, height)  
+  createCanvas(windowWidth, windowHeight)
   noStroke()
   
   input = createInput('hello');
