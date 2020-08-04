@@ -27,9 +27,9 @@ function setup() {
   input.position(20, sliderY);
   
   // create sliders
-  xPosSlider = createSlider(0, width, width/3, 1);
+  xPosSlider = createSlider(0, windowWidth, windowWidth/5, 1);
   xPosSlider.position(20, sliderY*2);
-  yPosSlider = createSlider(0, height, height/1.6, 1);
+  yPosSlider = createSlider(0, windowHeight, windowHeight/1.7, 1);
   yPosSlider.position(20, sliderY*3);
   noiseSlider = createSlider(-50, 50, 15, 1);
   noiseSlider.position(20, sliderY*4);
