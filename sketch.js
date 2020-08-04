@@ -15,11 +15,15 @@ function rotateAngle() {
   return radians(dotRSlider.value())
 }
 
+//pixelDensity
+//framerate
+//color picker
+
 function setup() {
   createCanvas(windowWidth, windowHeight)
   noStroke()
   
-  input = createInput('hello');
+  input = createInput('Thanks!');
   input.position(20, sliderY);
   
   // create sliders
@@ -27,7 +31,7 @@ function setup() {
   xPosSlider.position(20, sliderY*2);
   yPosSlider = createSlider(0, height, height/1.6, 1);
   yPosSlider.position(20, sliderY*3);
-  noiseSlider = createSlider(0, 50, 1, 1);
+  noiseSlider = createSlider(-50, 50, 1, 1);
   noiseSlider.position(20, sliderY*4);
   dotWSlider = createSlider(4, 150, 4, 1);
   dotWSlider.position(20, sliderY*5);
