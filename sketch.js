@@ -6,6 +6,8 @@ let noiseSlider, sizeSlider, colorSlider;
 let sliderY = 25
 let tracking = 0
 
+
+
 function preload() {
   font = loadFont('NotoSerifDisplay-ExtraLightItalic.ttf')
 //  font = loadFont('NotoJuans-Thin.otf')
@@ -31,21 +33,21 @@ function setup() {
   xPosSlider.position(20, sliderY*2);
   yPosSlider = createSlider(0, windowHeight, windowHeight/1.7, 1);
   yPosSlider.position(20, sliderY*3);
-  noiseSlider = createSlider(-50, 50, 15, 1);
+  noiseSlider = createSlider(-50, 50, 2, 1);
   noiseSlider.position(20, sliderY*4);
-  dotWSlider = createSlider(4, 150, 4, 1);
+  dotWSlider = createSlider(4, 150, 35, 1);
   dotWSlider.position(20, sliderY*5);
-  dotHSlider = createSlider(4, 150, 4, 1);
+  dotHSlider = createSlider(4, 150, 1, 1);
   dotHSlider.position(20, sliderY*6);
-  dotRSlider = createSlider(0, 360, 0, 1);
+  dotRSlider = createSlider(0, 360, 145, 1);
   dotRSlider.position(20, sliderY*7);
   fontSizeSlider = createSlider(8, 1000, 200, 1);
   fontSizeSlider.position(20, sliderY*8);
   rSlider = createSlider(0, 255, 255);
   rSlider.position(20, sliderY*9);
-  gSlider = createSlider(0, 255, 204);
+  gSlider = createSlider(0, 255, 120);
   gSlider.position(20, sliderY*10);
-  bSlider = createSlider(0, 255, 0);
+  bSlider = createSlider(0, 255, 100);
   bSlider.position(20, sliderY*11);
   trackingSlider = createSlider(0, 1000, 0, 1);
   trackingSlider.position(20, sliderY*12);
