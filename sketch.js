@@ -1,12 +1,10 @@
 let font
-let word = "hello"
-// let width = windowWidth
-// let height = windowHeight
 let noiseSlider, sizeSlider, colorSlider;
-let sliderY = 25
 let tracking = 0
+let colorPicker
+let sliderIndex = 2
 
-
+var input
 
 function preload() {
   font = loadFont('NotoSerifDisplay-ExtraLightItalic.ttf')
@@ -17,44 +15,99 @@ function rotateAngle() {
   return radians(dotRSlider.value())
 }
 
-//pixelDensity
-//framerate
-//color picker
-
 function setup() {
   createCanvas(windowWidth, windowHeight)
-  noStroke()
+  // noStroke()
+  frameRate = 30
   
-  input = createInput('Thanks!');
-  input.position(20, sliderY);
+  sliderX = 50
+  sliderY = 25
+  sliderW = "145px"
   
-  // create sliders
+  input = createInput('Type!');
+  input.position(sliderX, sliderY*sliderIndex+1);
+  sliderIndex=sliderIndex+1
+  
+  // X
   xPosSlider = createSlider(0, windowWidth, windowWidth/5, 1);
-  xPosSlider.position(20, sliderY*2);
+  xPosSlider.position(sliderX, sliderY*sliderIndex+1);
+  xPosSlider.style('width', sliderW);
+  sliderIndex=sliderIndex+1
+  
+  // Y
   yPosSlider = createSlider(0, windowHeight, windowHeight/1.7, 1);
-  yPosSlider.position(20, sliderY*3);
-  noiseSlider = createSlider(-50, 50, 2, 1);
-  noiseSlider.position(20, sliderY*4);
-  dotWSlider = createSlider(4, 150, 35, 1);
-  dotWSlider.position(20, sliderY*5);
-  dotHSlider = createSlider(4, 150, 1, 1);
-  dotHSlider.position(20, sliderY*6);
-  dotRSlider = createSlider(0, 360, 145, 1);
-  dotRSlider.position(20, sliderY*7);
+  yPosSlider.position(sliderX, sliderY*sliderIndex+1);
+  yPosSlider.style('width', sliderW);
+  sliderIndex=sliderIndex+1
+  
+  // Noise
+  noiseSlider = createSlider(-50, 50, 1, 1);
+  noiseSlider.position(sliderX, sliderY*sliderIndex+1);
+  noiseSlider.style('width', sliderW);
+  sliderIndex=sliderIndex+1
+  
+  // Dot Width Size
+  dotWSlider = createSlider(-150, 150, 35, 1);
+  dotWSlider.position(sliderX, sliderY*sliderIndex+1);
+  dotWSlider.style('width', sliderW);
+  sliderIndex=sliderIndex+1
+  
+  // Dot Height Size
+  dotHSlider = createSlider(-150, 150, 5, 1);
+  dotHSlider.position(sliderX, sliderY*sliderIndex+1);
+  dotHSlider.style('width', sliderW);
+  sliderIndex=sliderIndex+1
+  
+  // Dot Rotation Size
+  dotRSlider = createSlider(0, 360, 148, 1);
+  dotRSlider.position(sliderX, sliderY*sliderIndex+1);
+  dotRSlider.style('width', sliderW);
+  sliderIndex=sliderIndex+1
+  
+  // Font Size
   fontSizeSlider = createSlider(8, 1000, 200, 1);
-  fontSizeSlider.position(20, sliderY*8);
-  rSlider = createSlider(0, 255, 255);
-  rSlider.position(20, sliderY*9);
-  gSlider = createSlider(0, 255, 120);
-  gSlider.position(20, sliderY*10);
-  bSlider = createSlider(0, 255, 100);
-  bSlider.position(20, sliderY*11);
-  trackingSlider = createSlider(0, 1000, 0, 1);
-  trackingSlider.position(20, sliderY*12);
+  fontSizeSlider.position(sliderX, sliderY*sliderIndex+1);
+  fontSizeSlider.style('width', sliderW);
+  sliderIndex=sliderIndex+1
+  
+  // Stroke Thickness
+  strokeThicknessSlider = createSlider(0, 10, 1, .01);
+  strokeThicknessSlider.position(sliderX, sliderY*sliderIndex+1);
+  strokeThicknessSlider.style('width', sliderW);
+  sliderIndex=sliderIndex+1
+  
+  // Stroke Color
+  strokeColorPicker = createColorPicker('#0033FF');
+  strokeColorPicker.position(sliderX, sliderY*sliderIndex+1);
+  strokeColorPicker.style('width', sliderW);
+  sliderIndex=sliderIndex+1
+  
+  // Dot Color
+  dotColorPicker = createColorPicker('#E4D101');
+  dotColorPicker.position(sliderX, sliderY*sliderIndex+10);
+  dotColorPicker.style('width', sliderW);
+  sliderIndex=sliderIndex+1
+  
+  // Background Color
+  colorPicker = createColorPicker('#FF7A70');
+  colorPicker.position(sliderX, sliderY*sliderIndex+20);
+  colorPicker.style('width', sliderW);
+  sliderIndex=sliderIndex+1
+  
+  // // Gif Button
+  // buttonSave = createButton('GIF');
+  // buttonSave.mousePressed(saveGIF); 
+  // buttonSave.style('width', sliderW);
+  // buttonSave.position(sliderX, sliderY*sliderIndex+30);
+  
+  
 }
 
+
 function draw() {
-  background(0)
+  
+  background(colorPicker.color(), windowHeight, windowHeight);
+  
   const xPos = xPosSlider.value();
   const yPos = yPosSlider.value();
   const noise = noiseSlider.value();
@@ -62,56 +115,79 @@ function draw() {
   const dotH = dotHSlider.value();
   const dotR = dotRSlider.value();
   const fontSize = fontSizeSlider.value();
-  const r = rSlider.value();
-  const g = gSlider.value();
-  const b = bSlider.value();
   const name = input.value();
-  const tracking = trackingSlider.value();
-  background(r, g, b);
-  text('x', xPosSlider.x * 2 + xPosSlider.width, sliderY*2.4);
-  text('y', yPosSlider.x * 2 + yPosSlider.width,  sliderY*3.4);
-  text('Noise', noiseSlider.x * 2 + noiseSlider.width,  sliderY*4.4);
-  text('Dot Width Size', dotWSlider.x * 2 + dotWSlider.width,  sliderY*5.4);
-  text('Dot Height Size', dotHSlider.x * 2 + dotHSlider.width,  sliderY*6.4);
-  text('Dot Rotation', dotRSlider.x * 2 + dotRSlider.width,  sliderY*7.4);
-  text('Font Size', fontSizeSlider.x * 2 + fontSizeSlider.width,  sliderY*8.4);
-  text('Red', rSlider.x * 2 + rSlider.width,  sliderY*9.4);
-  text('Green', gSlider.x * 2 + gSlider.width,  sliderY*10.4);
-  text('Blue', bSlider.x * 2 + bSlider.width,  sliderY*11.4);
-  text('Tracking', trackingSlider.x * 2 + trackingSlider.width,  sliderY*12.4);
-
+  const strokeThickness = strokeThicknessSlider.value();
+  
+  labelX = 1.5
+  sliderIndexY = sliderY/10+1.1
+  background(colorPicker.color());
+  
+  strokeWeight()
+  stroke(strokeColorPicker.color())
+  fill(colorPicker.color()*.01)
+  textSize(14)
+  textStyle(BOLD)
+  text('x', xPosSlider.x * labelX + xPosSlider.width, sliderY*sliderIndexY);
+  sliderIndexY=sliderIndexY+1
+  
+  text('y', yPosSlider.x * labelX + yPosSlider.width,  sliderY*sliderIndexY);
+  sliderIndexY=sliderIndexY+1
+  
+  text('Noise', noiseSlider.x * labelX + noiseSlider.width,  sliderY*sliderIndexY);
+  sliderIndexY=sliderIndexY+1
+  
+  text('Dot Width Size', dotWSlider.x * labelX + dotWSlider.width,  sliderY*sliderIndexY);
+  sliderIndexY=sliderIndexY+1
+  
+  text('Dot Height Size', dotHSlider.x * labelX + dotHSlider.width,  sliderY*sliderIndexY);
+  sliderIndexY=sliderIndexY+1
+  
+  text('Dot Rotation', dotRSlider.x * labelX + dotRSlider.width,  sliderY*sliderIndexY);
+  sliderIndexY=sliderIndexY+1
+  
+  text('Font Size', fontSizeSlider.x * labelX + fontSizeSlider.width,  sliderY*sliderIndexY);
+  sliderIndexY=sliderIndexY+1
+  
+  
+    text('Stroke Thickness', strokeThicknessSlider.x * labelX + strokeThicknessSlider.width,  sliderY*sliderIndexY);
+  sliderIndexY=sliderIndexY+1.2
+  
+    text('Stroke Color', colorPicker.x * labelX + colorPicker.width,  sliderY*sliderIndexY);
+  sliderIndexY=sliderIndexY+1.3
+  
+    text('Dot Color', colorPicker.x * labelX + colorPicker.width,  sliderY*sliderIndexY);
+  sliderIndexY=sliderIndexY+1.4
+  
+    text('Background Color', colorPicker.x * labelX + colorPicker.width,  sliderY*sliderIndexY);
+  
   points = font.textToPoints(input.value(), xPosSlider.value(), yPosSlider.value(), fontSizeSlider.value())
       
   for (let pt of points) {
     push ()
       translate(pt.x + random(noiseSlider.value()), pt.y + random(noiseSlider.value()))
       rotate(rotateAngle())
-      stroke(.01, fill(r, g, b));
-      // pt.color = color(255,255,255)
-      ellipse(
-        0, 
-        0,
-        dotWSlider.value(),
-        dotHSlider.value()
-        )
+      strokeWeight(strokeThicknessSlider.value())
+      stroke(0, fill(dotColorPicker.color()))
+      stroke(color(strokeColorPicker.color()));
+      ellipse(0, 0, dotWSlider.value(), dotHSlider.value());
     pop()
-
-//   const getCharacterBoundaries = (name) => {
-//     return text.split(name).reduce((arr, char) => {
-//       const prevBoundary = arr[arr.length - 1] || 0
-
-//       // Convert the single character into points and count the length.
-//       const test = font.textToPoints(char, 0, 0, fontSize, {
-//         sampleFactor,
-//         simplifyThreshold: 0
-//       })
-
-//       // Offset the length by the previous character boundary.
-//       arr.push(prevBoundary + trackingSlider.value())
-//       return arr
-//     }, [])
-//   }
     
+    //   const getCharacterBoundaries = (name) => {
+    //     return text.split(name).reduce((arr, char) => {
+    //       const prevBoundary = arr[arr.length - 1] || 0
+
+    //       // Convert the single character into points and count the length.
+    //       const test = font.textToPoints(char, 0, 0, fontSize, {
+    //         sampleFactor,
+    //         simplifyThreshold: 0
+    //       })
+
+    //       // Offset the length by the previous character boundary.
+    //       arr.push(prevBoundary + trackingSlider.value())
+    //       return arr
+    //     }, [])
+    //   }
+
     // push ()
     //   translate(width/2, height/2)
     //   rotate(rotateAngle())
@@ -126,7 +202,13 @@ function draw() {
     // translate(pt.x + random(noiseSlider.value()), pt.y+random(noiseSlider.value()));
     // rotate(rotateAngle())
     // ellipse(0,0,dotWSlider.value(),dotHSlider.value())
-    
   }
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+function saveGIF(){
+  createLoop({duration:3, gif:true, canvas:canvas,render:true,  download:false})
+}
